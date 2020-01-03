@@ -8,6 +8,8 @@ var app = express();
 
 // UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
@@ -19,16 +21,15 @@ app.all('/items', function (req, res, next) {
 
 
 //create user
-app.all('/signin', function (req, res, next) {
-  console.log('Request signin Type:', req.method)
-  if (req.body.email && req.body.username && req.body.password && req.body.passwordConf) {
+app.all('/login', function (req, res, next) {
+  console.log('Request signin Type:', req.body)
+  if ( req.body.username && req.body.password) {
     var userData = {
-      email: req.body.email,
       username: req.body.username,
       password: req.body.password,
     }
 
-    db.create(userData, function (err, user){
+    db.userCreate(userData, function (err, user){
       if (err) {
         return next(err)
       } else {

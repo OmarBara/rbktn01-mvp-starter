@@ -18,34 +18,32 @@ class Login extends  React.Component {
    }
 
    handleClick(event){
-    var payload={
-    "email":this.state.username,
+    var data={
+    "username":this.state.username,
     "password":this.state.password
     }
 
-    $.ajax({
-      type: 'POST',
-      url: '/login',
-      data: payload,
-      success: (data) => {
-        if(data.code == 200){
-          console.log("Login successfull");
-        }else {console.log("Username password do not match");}
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      error: (err) => {
-        console.log('err', err);
+      body: JSON.stringify(data),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if(data.code == 200){
+        console.log("Login successfull");
+        this.props.login.setState({login : true})
+      }else {
+        console.log("Username password do not match");
       }
     })
-    this.props.login.setState({login : true})
-    // var uploadScreen=[];
-    // uploadScreen.push(<UploadScreen appContext={this.props.appContext}/>)
-    // this.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-
-
-    .catch(function (error) {
-    console.log(error);
+    .catch((error) => {
+      console.error('Error:', error);
     });
     }
+
 
   render() {
       return (

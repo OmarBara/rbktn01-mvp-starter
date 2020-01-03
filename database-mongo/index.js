@@ -29,12 +29,6 @@ var selectAll = function(callback) {
 };
 //************************user ****************************************/
 var userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true
-  },
   username: {
     type: String,
     unique: true,
@@ -49,7 +43,7 @@ var userSchema = new mongoose.Schema({
 
 var user = mongoose.model('user', userSchema);
 
-var userCreate = function(callback) {
+var userCreate = function(userData) {
 user.create(userData, function (err, user) {
   if (err) {
     return next(err)
