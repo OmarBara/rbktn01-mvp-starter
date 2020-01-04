@@ -19,7 +19,7 @@ class App extends React.Component {
   render () {
     if(!this.state.login){
     return (<div>
-      <h1>Log in</h1>
+      <h1>Welcome to Crafiss the new jarvis</h1>
       <Login login={this.state.login}/>
     </div>)
     }

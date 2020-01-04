@@ -43,12 +43,12 @@ var userSchema = new mongoose.Schema({
 
 var user = mongoose.model('user', userSchema);
 
-var userCreate = function(userData) {
+var userCreate = function(userData, cb) {
 user.create(userData, function (err, user) {
   if (err) {
-    return next(err)
+    return
   } else {
-    return res.redirect('/profile');
+
   }
 });
 }
